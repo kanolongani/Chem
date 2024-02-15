@@ -12,7 +12,7 @@ def get_base64(bin_file):
 def display_product_page(image_url, product_info):
     # Set title and page layout
     st.title("1000340-35-1")
-    # bin_str = get_base64("bg.jpg")
+    bin_str = ""
     
     st.markdown(
         """
