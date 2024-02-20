@@ -71,14 +71,16 @@ def get_cid(cas_no):
     return cid_no
 
 
-def product(ref_id):
+def product(ref_id,cas_number):
     url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/{ref_id}/JSON/"
+    print(url)
+    print("-----------------------")
     response = requests.request("GET", url)
     response = response.text
     response = json.loads(response)
 
     chemical_name = response["Record"]["RecordTitle"]
-    cas_number = response["Record"]["Reference"][0]["SourceID"]
+    # cas_number = response["Record"]["Reference"][0]["SourceID"]
 
     mf = response["Record"]["Section"]
     mf = find_dictonary(mf,"TOCHeading","Names and Identifiers")
@@ -149,10 +151,10 @@ def main():
                     display_not_found(str_nm="product", cas_num=cas_num)
 
                 else:
-                    details = product(cid)
+                    details = product(cid,cas_num)
 
                     product_info = {
-                        "Catalog Number": cid,
+                        "Catalog Number": pc_num,
                         "Chemical Name": details[0],
                         "CAS Number": details[1],
                         "Molecular Formula": details[2],
