@@ -1,6 +1,7 @@
 import requests
 import json
 import streamlit as st
+from urllib.request import urlopen
 
 def display_product_page(image_url, product_info):
     st.title("1000340-35-1")
@@ -73,19 +74,43 @@ def product(ref_id):
     return [chemical_name , cas_number , mf , mw]
 
 
-def pc_to_cas(pc_num:str):
-    return "3600-87-1"
+# def pc_to_cas(pc_num: str):
+#     try:
+#         # Open the Google Sheet by its URL (assuming it has public read access)
+#         sheet_url = "YOUR_GOOGLE_SHEET_URL"
+#         sheet_id = sheet_url.split('/')[-2]
+#         url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:json"
+#         response = urlopen(url)
+#         data = json.load(response)
+
+#         # Extract the rows from the JSON response
+#         rows = data['table']['rows']
+
+#         # Find CAS number corresponding to PC number
+#         for row in rows:
+#             cells = row['c']
+#             if cells[0]['v'] == pc_num:
+#                 return cells[1]['v']
+
+#         # Return a default value if PC number is not found
+#         return "CAS number not found"
+#     except Exception as e:
+#         print(f"Error occurred: {e}")
+#         return "Error"
+
+    
 
 
 def main():
     params = st.experimental_get_query_params()
     pc_num = params.get('pc_num', [None])[0]
 
-    st.write("Parameter value:", pc_num)
+    # st.write("Parameter value:", pc_num)
 
     if pc_num:
         with st.spinner('Loading...'):
-            cas_num = pc_to_cas(pc_num=pc_num)
+            # cas_num = pc_to_cas(pc_num=pc_num)
+            cas_num = '21871-47-6'
             cid = get_cid(cas_no=cas_num)
             details = product(cid)
 
