@@ -2,33 +2,120 @@ import requests
 import json
 import streamlit as st
 from urllib.request import urlopen
+import base64
 
+@st.experimental_memo
+def get_img_as_base64(file):
+    with open(file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+
+img = get_img_as_base64("image.jpg")
+
+page_bg_img__ = f"""
+
+[data-testid="stAppViewContainer"] > .main {{
+background-image: url("data:image/png;base64,{img}");
+# background-repeat: no-repeat;
+background-attachment: local;
+}}
+
+"""
 
 def display_product_page(image_url, product_info):
-    st.title(product_info['CAS Number'])
-    page_bg_img = """
+    col1, col3 , col2 = st.columns([5,2,5])
+    with col1:
+        st.image('logo.png', use_column_width=True)
+    page_bg_img = f"""
     <style>
-    body {
+
+    {page_bg_img__}
+    body {{
         font-family: Arial, sans-serif;
-    }
-    .json-key {
+    }}
+    .json-key {{
         font-weight: bold;
         color: #0066ff; 
-    }
+    }}
+    .custom-div {{
+        height: 300px;
+        width: 350px;
+        border-radius: 5%;
+        background-color: #91ACE1;
+        color: black;
+        font-size: 20px;
+    }}
+    .custom-divss {{
+        height: 300px;
+        width: 350px;
+        border-radius: 5%;
+        background-color: #91ACE1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-size: 20px;
+    }}
+    .description {{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }}
+    .description-item {{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        word-break: break-word; /* Adding word break to handle long values */
+    }}
+    .value {{
+        flex: 1; /* Allow the value to grow and shrink */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+    }}
+     .footer {{
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        margin-top: 50px;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        font-size: 20px;
+    }}
     </style>
     """
+    st.markdown("""
+    <style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+    </style>
+    """, unsafe_allow_html=True)
+    
     st.markdown(page_bg_img, unsafe_allow_html=True)
+    
 
-    col1, col2 = st.columns([2, 3])
+    col1, col3 , col2 = st.columns([5,2,5])
 
     with col1:
-        st.image(image_url, use_column_width=True)
+        st.markdown(f"<div class='custom-div'><img src='{image_url}' style='border-radius: 5%;width:350px;height:302px;  '></div>", unsafe_allow_html=True)
 
     with col2:
-        st.markdown("**Description**")
+        h = "<div class='custom-divss description'>"
+        h += "<div style='font-weight: bold;'>Description</div>"
+        h += "<br>"
         for key, value in product_info.items():
-            st.markdown(f"<span class='json-key'>{key}:</span> {value}", unsafe_allow_html=True)
+            h += f"<div class='description-item'><span class='key'>{key}:</span><span class='value'>{value}</span></div>"
+        h+= "</div>"
+        st.markdown(h,unsafe_allow_html=True)
 
+    st.markdown("""
+    <div class='footer'>
+        <span style='font-weight: bold;'>Contact us</span><br>
+        <i class="fas fa-envelope" style="color: orange;"></i> <span style='font-weight: bold;'>sales@aswmedchem.com</span><br>
+        <i class="fas fa-phone" style="color: orange;"></i> <span style='font-weight: bold;'>732-342-6911</span><br>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 def display_not_found(str_nm,cas_num):
