@@ -26,7 +26,17 @@ background-attachment: local;
 def display_product_page(image_url, product_info):
     col1, col3 , col2 = st.columns([5,2,5])
     with col1:
-        st.image('logo.png', use_column_width=True)
+        
+        # st.image('logo.png', use_column_width=True)
+        st.markdown(
+        """<a href="http://www.aswmedchem.com/">
+        <img src="data:image/png;base64,{}" width="283px">
+        </a>""".format(
+            base64.b64encode(open("logo.png", "rb").read()).decode()
+        ),
+        unsafe_allow_html=True,
+)
+        # st.markdown("[![Logo](logo.png)](http://www.aswmedchem.com/)", unsafe_allow_html=True)
     page_bg_img = f"""
     <style>
 
@@ -102,8 +112,6 @@ def display_product_page(image_url, product_info):
 
     with col2:
         h = "<div class='custom-divss description'>"
-        h += "<div style='font-weight: bold;'>Description</div>"
-        h += "<br>"
         for key, value in product_info.items():
             h += f"<div class='description-item'><span class='key'>{key}:</span><span class='value'>{value}</span></div>"
         h+= "</div>"
@@ -188,7 +196,7 @@ def product(ref_id,cas_number):
 def pc_to_cas(pc_num: str):
     try:
         # Open the Google Sheet by its URL (assuming it has public read access)
-        sheet_url = "https://docs.google.com/spreadsheets/d/1mHiSsr4Mxjc8Q36C42cCUWunsMatF2YS6Flv91Grkms/edit?usp=sharing"
+        sheet_url = "https://docs.google.com/spreadsheets/d/1DLmFhnKSRLlTF5Fzu2KglJBlzC7YpKC_A_ecNQJ6vrY/edit?usp=sharing"
         sheet_id = sheet_url.split('/')[-2]
         url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:json"
         response = requests.get(url)
