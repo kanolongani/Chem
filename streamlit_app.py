@@ -46,7 +46,9 @@ def display_product_page(image_url, product_info):
     }}
     .json-key {{
         font-weight: bold;
-        color: #0066ff; 
+        color: #000000; 
+        font-family : Calibri, sans-serif;
+
     }}
     .custom-div {{
         height: 300px;
@@ -58,31 +60,31 @@ def display_product_page(image_url, product_info):
     }}
     .custom-divss {{
         height: 300px;
-        width: 350px;
+        width: 400px;
         border-radius: 5%;
         background-color: #91ACE1;
         display: flex;
         justify-content: center;
         align-items: center;
         color: black;
-        font-size: 20px;
+        font-size: 25px;
     }}
     .description {{
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: 10px;
+        padding: 2px;
     }}
     .description-item {{
-        display: flex;
         justify-content: space-between;
         width: 100%;
         word-break: break-word; /* Adding word break to handle long values */
     }}
     .value {{
         flex: 1; /* Allow the value to grow and shrink */
-        overflow: hidden; /* Hide overflowing text */
-        text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+        # overflow: hidden; /* Hide overflowing text */
+        # text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+        font-family : Calibri, sans-serif;
     }}
      .footer {{
         left: 0;
@@ -113,7 +115,7 @@ def display_product_page(image_url, product_info):
     with col2:
         h = "<div class='custom-divss description'>"
         for key, value in product_info.items():
-            h += f"<div class='description-item'><span class='key'>{key}:</span><span class='value'>{value}</span></div>"
+            h += f"<div class='description-item'><span class='json-key'>{key}: &nbsp</span><span class='value'>{value}</span></div>"
         h+= "</div>"
         st.markdown(h,unsafe_allow_html=True)
 
