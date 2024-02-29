@@ -3,6 +3,7 @@ import json
 import streamlit as st
 from urllib.request import urlopen
 import base64
+import webbrowser 
 
 @st.experimental_memo
 def get_img_as_base64(file):
@@ -141,6 +142,9 @@ def display_not_found(str_nm,cas_num):
     }
     </style>
     """
+    new_url = "https://aswmedchem.com/contact/"
+    webbrowser.open(new_url)
+    # st.experimental_set_query_params(redirect=new_url)
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
     
