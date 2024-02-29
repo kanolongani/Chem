@@ -143,9 +143,15 @@ def display_not_found(str_nm,cas_num):
     </style>
     """
     new_url = "https://aswmedchem.com/contact/"
-    webbrowser.open(new_url)
+    nav_to(new_url)
     # st.experimental_set_query_params(redirect=new_url)
     st.markdown(page_bg_img, unsafe_allow_html=True)
+
+def nav_to(url):
+    nav_script = """
+        <meta http-equiv="refresh" content="0; url='%s'">
+    """ % (url)
+    st.write(nav_script, unsafe_allow_html=True)
 
     
 def find_dictonary(list_of_dictonary,key_,value_):
