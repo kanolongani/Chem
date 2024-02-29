@@ -130,20 +130,84 @@ def display_product_page(image_url, product_info):
 
 def display_not_found(str_nm,cas_num):
     # st.title(f"{str_nm} not found  for {cas_num}")
-    page_bg_img = """
+    page_bg_img = f"""
     <style>
-    body {
+
+    {page_bg_img__}
+    body {{
         font-family: Arial, sans-serif;
-    }
-    .json-key {
+    }}
+    .json-key {{
         font-weight: bold;
-        color: #0066ff; 
-    }
+        color: #000000; 
+        font-family : Calibri, sans-serif;
+
+    }}
+    .custom-div {{
+        height: 300px;
+        width: 350px;
+        border-radius: 5%;
+        background-color: #91ACE1;
+        color: black;
+        font-size: 20px;
+    }}
+    .custom-divss {{
+        height: 300px;
+        width: 400px;
+        border-radius: 5%;
+        background-color: #91ACE1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-size: 25px;
+    }}
+    .description {{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2px;
+    }}
+    .description-item {{
+        justify-content: space-between;
+        width: 100%;
+        word-break: break-word; /* Adding word break to handle long values */
+    }}
+    .value {{
+        flex: 1; /* Allow the value to grow and shrink */
+        # overflow: hidden; /* Hide overflowing text */
+        # text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+        font-family : Calibri, sans-serif;
+    }}
+     .footer {{
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        margin-top: 50px;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        font-size: 20px;
+    }}
     </style>
     """
+    st.markdown("""
+    <style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+    </style>
+    """, unsafe_allow_html=True)
+    
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+    st.markdown("""
+    <div class='footer'>
+        <span style='font-weight: bold;'>Contact us</span><br>
+        <i class="fas fa-envelope" style="color: orange;"></i> <span style='font-weight: bold;'>sales@aswmedchem.com</span><br>
+        <i class="fas fa-phone" style="color: orange;"></i> <span style='font-weight: bold;'>732-342-6911</span><br>
+    </div>
+    """, unsafe_allow_html=True)
     js = """
     <script>
-    window.parent.postMessage({totalTokensUsed: 1234}, '*');
+    window.parent.parent.postMessage("notfound", '*');
     </script>
     """
     print("sent")
