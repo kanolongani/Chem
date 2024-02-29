@@ -4,7 +4,6 @@ import streamlit as st
 from urllib.request import urlopen
 import base64
 import webbrowser 
-
 @st.experimental_memo
 def get_img_as_base64(file):
     with open(file, "rb") as f:
@@ -130,7 +129,7 @@ def display_product_page(image_url, product_info):
 
 
 def display_not_found(str_nm,cas_num):
-    st.title(f"{str_nm} not found  for {cas_num}")
+    # st.title(f"{str_nm} not found  for {cas_num}")
     page_bg_img = """
     <style>
     body {
@@ -142,16 +141,15 @@ def display_not_found(str_nm,cas_num):
     }
     </style>
     """
-    new_url = "https://aswmedchem.com/contact/"
-    nav_to(new_url)
-    # st.experimental_set_query_params(redirect=new_url)
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+    js = """
+    <script>
+    window.parent.postMessage({totalTokensUsed: 1234}, '*');
+    </script>
+    """
+    print("sent")
+    st.components.v1.html(js, height=0)
 
-def nav_to(url):
-    nav_script = """
-        <meta http-equiv="refresh" content="0; url='%s'">
-    """ % (url)
-    st.write(nav_script, unsafe_allow_html=True)
+
 
     
 def find_dictonary(list_of_dictonary,key_,value_):
