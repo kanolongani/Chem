@@ -392,7 +392,7 @@ def product(ref_id,cas_number):
 def pc_to_cas(pc_num: str):
     try:
         # Open the Google Sheet by its URL (assuming it has public read access)
-        sheet_url = "https://docs.google.com/spreadsheets/d/1DLmFhnKSRLlTF5Fzu2KglJBlzC7YpKC_A_ecNQJ6vrY/edit?usp=sharing"
+        sheet_url = "https://docs.google.com/spreadsheets/d/12SsNzT75KmhGz8iBBKtRjYEBfI9dHtLK2DoZ__8pOCY/edit?usp=sharing"
         sheet_id = sheet_url.split('/')[-2]
         url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:json"
         response = requests.get(url)
